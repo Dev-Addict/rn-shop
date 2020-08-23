@@ -1,11 +1,21 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {FlatList, Text} from 'react-native';
+import {useSelector, useDispatch} from "react-redux";
+import {getProducts} from "../../actions";
 
 const ProductsOverviewScreen = () => {
+    const products = useSelector(({products}) => products);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getProducts())
+    }, []);
+
     return (
-        <View>
-            <Text>ProductsOverviewScreen</Text>
-        </View>
+        <FlatList data={products} keyExtractor={({id}) => id} renderItem={({item}) => (
+            <Text>{item.title}</Text>
+        )}/>
     );
 };
 

@@ -1,1 +1,1 @@
-export const SET_PRODUCTS = 'set products';
+export const SET_PRODUCTS_ACTION_TYPE = 'set products';
