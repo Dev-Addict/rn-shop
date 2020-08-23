@@ -1,11 +1,9 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 
 const UserProductsScreen = () => {
     return (
-        <View>
-            <Text>UserProductsScreen</Text>
-        </View>
+        <FlatList/>
     );
 };
 
