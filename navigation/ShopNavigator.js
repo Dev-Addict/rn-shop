@@ -2,6 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
 
 import ProductsOverviewScreen from "../Screens/shop/ProductsOverviewScreen";
 import Colors from "../constants/Colors";
@@ -18,7 +19,9 @@ const ShopNavigator = () => {
                 headerTintColor: Colors.foreground,
                 headerTitleStyle: {
                     fontFamily: 'raleway'
-                }
+                },
+                headerBackTitle: '',
+                headerBackImage: () => <Ionicons name="md-arrow-back" size={25} color={Colors.foreground}/>
             }}>
                 <ShopStack.Screen name="ProductsOverview" component={ProductsOverviewScreen} options={{title: "Shop"}}/>
             </ShopStack.Navigator>

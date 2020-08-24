@@ -1,7 +1,10 @@
 import React, {useEffect} from 'react';
-import {FlatList, Text} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {useSelector, useDispatch} from "react-redux";
 import {getProducts} from "../../actions";
+
+import ProductCard from "../../components/ProductCard";
+import styles from "../../styles";
 
 const ProductsOverviewScreen = () => {
     const products = useSelector(({products}) => products);
@@ -13,9 +16,9 @@ const ProductsOverviewScreen = () => {
     }, []);
 
     return (
-        <FlatList data={products} keyExtractor={({id}) => id} renderItem={({item}) => (
-            <Text>{item.title}</Text>
-        )}/>
+        <View style={styles.screen}>
+            <FlatList data={products} keyExtractor={({id}) => id} renderItem={ProductCard}/>
+        </View>
     );
 };
 
