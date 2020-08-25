@@ -6,7 +6,7 @@ import {getProducts} from "../../actions";
 import ProductCard from "../../components/ProductCard";
 import styles from "../../styles";
 
-const ProductsOverviewScreen = () => {
+const ProductsOverviewScreen = ({navigation}) => {
     const products = useSelector(({products}) => products);
 
     const dispatch = useDispatch();
@@ -17,7 +17,8 @@ const ProductsOverviewScreen = () => {
 
     return (
         <View style={styles.screen}>
-            <FlatList data={products} keyExtractor={({id}) => id} renderItem={ProductCard}/>
+            <FlatList data={products} keyExtractor={({id}) => id}
+                      renderItem={(props) => <ProductCard navigation={navigation} {...props}/>}/>
         </View>
     );
 };

@@ -21,7 +21,8 @@ const App = () => {
         'raleway-medium-italic': require('./assets/fonts/raleway-medium-italic.ttf'),
         'raleway': require('./assets/fonts/raleway-regular.ttf'),
         'raleway-semi-bold': require('./assets/fonts/raleway-semi-bold.ttf'),
-        'raleway-semi-bold-italic': require('./assets/fonts/raleway-semi-bold-italic.ttf')
+        'raleway-semi-bold-italic': require('./assets/fonts/raleway-semi-bold-italic.ttf'),
+        'dancing-script': require('./assets/fonts/dancing-script-regular.ttf')
     });
 
     if (!isFontLoaded)

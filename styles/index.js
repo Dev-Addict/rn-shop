@@ -1,11 +1,12 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 import Colors from "../constants/Colors";
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: Colors.background
+        backgroundColor: Colors.background,
+        minHeight: Dimensions.get('window').height
     },
     text: {
         color: Colors.foreground,
@@ -14,12 +15,12 @@ const styles = StyleSheet.create({
     },
     largeImage: {
         width : '100%',
-        height: 300
+        height: 300,
+        backgroundColor: Colors.foreground
     },
     cardImage: {
         borderTopRightRadius: 8,
-        borderTopLeftRadius: 8,
-        backgroundColor: Colors.foreground,
+        borderTopLeftRadius: 8
     },
     card: {
         margin: 20,
@@ -78,6 +79,16 @@ const styles = StyleSheet.create({
     },
     danger: {
         backgroundColor: Colors.danger
+    },
+    content: {
+        padding: 10
+    },
+    actionBox: {
+        padding: 10,
+        margin: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     }
 });
 

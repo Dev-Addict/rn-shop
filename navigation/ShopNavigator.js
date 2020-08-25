@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 
 import ProductsOverviewScreen from "../Screens/shop/ProductsOverviewScreen";
+import ProductDetailScreen from "../Screens/shop/ProductDetailScreen";
 import Colors from "../constants/Colors";
 
 const ShopStack = createStackNavigator();
@@ -24,6 +25,7 @@ const ShopNavigator = () => {
                 headerBackImage: () => <Ionicons name="md-arrow-back" size={25} color={Colors.foreground}/>
             }}>
                 <ShopStack.Screen name="ProductsOverview" component={ProductsOverviewScreen} options={{title: "Shop"}}/>
+                <ShopStack.Screen name="ProductDetailScreen" component={ProductDetailScreen}/>
             </ShopStack.Navigator>
         </NavigationContainer>
     );

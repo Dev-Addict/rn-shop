@@ -4,9 +4,8 @@ import {View, Image} from 'react-native';
 import Text from './Text';
 import Button from "./Button";
 import styles from "../styles";
-import Colors from "../constants/Colors";
 
-const ProductCard = ({item: {title, imageUrl, description, price}}) => {
+const ProductCard = ({item: {id, title, imageUrl, description, price}, navigation: {navigate}}) => {
     return (
         <View style={styles.card}>
             <Image source={{
@@ -18,9 +17,11 @@ const ProductCard = ({item: {title, imageUrl, description, price}}) => {
                 <Text size={2}>{title}</Text>
                 <Text numberOfLines={1} size={4}>{description}</Text>
                 <View style={styles.cardActionBox}>
-                    <Button title="Read More"/>
-                    <Text size={4} style={{fontFamily: 'raleway-bold'}}>{price}$</Text>
-                    <Button title="Add To Cart"/>
+                    <Button title="Read More" onPress={() => {navigate('ProductDetailScreen', {
+                        id
+                    })}}/>
+                    <Text size={4} style={{fontFamily: 'dancing-script'}}>{price}$</Text>
+                    <Button title="Add To Cart" onPress={() => {}}/>
                 </View>
             </View>
         </View>
