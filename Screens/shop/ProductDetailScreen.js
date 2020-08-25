@@ -1,15 +1,19 @@
 import React, {useEffect} from 'react';
 import {View, Image, ScrollView} from 'react-native';
+import {useDispatch} from "react-redux";
 
 import Text from "../../components/Text";
 import styles from "../../styles";
 import {useSelector} from "react-redux";
 import Button from "../../components/Button";
+import {addProductToCart} from "../../actions";
 
 const ProductDetailScreen = ({route: {params}, navigation: {setOptions}}) => {
     const {id} = params;
 
     const {title, imageUrl, description, price} = useSelector(({products}) => products).find(product => product.id === id);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setOptions({
@@ -29,7 +33,9 @@ const ProductDetailScreen = ({route: {params}, navigation: {setOptions}}) => {
                         <Text size={4}>{description}</Text>
                         <View style={styles.actionBox}>
                             <Text style={{fontFamily: 'dancing-script'}}>{price}$</Text>
-                            <Button title="Add To Cart"/>
+                            <Button title="Add To Cart" onPress={() => {
+                                dispatch(addProductToCart(id))
+                            }}/>
                         </View>
                     </View>
                 </View>
