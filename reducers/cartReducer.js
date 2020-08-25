@@ -1,4 +1,8 @@
-import {ADD_PRODUCT_TO_CART_ACTION_TYPE, REMOVE_ONE_PRODUCT_FROM_CART_ACTION_TYPE, REMOVE_PRODUCT_FROM_CART_ACTION_TYPE} from "../actions/types";
+import {
+    ADD_PRODUCT_TO_CART_ACTION_TYPE,
+    REMOVE_ONE_PRODUCT_FROM_CART_ACTION_TYPE,
+    REMOVE_PRODUCT_FROM_CART_ACTION_TYPE
+} from "../actions/types";
 
 const cartReducer = (state = [], action) => {
     if (action.type === ADD_PRODUCT_TO_CART_ACTION_TYPE)

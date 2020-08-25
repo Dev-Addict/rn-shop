@@ -24,9 +24,18 @@ Array.prototype.removeOneIf = function(callback) {
     while (i--) {
         if (callback(this[i], i)) {
             this.splice(i, 1);
-            return
+            return this
         }
     }
+};
+
+Array.prototype.amountOf = function(value) {
+    let amount = 0;
+    let i = this.length;
+    while(i--)
+        if (this[i] === value)
+            amount++;
+    return amount;
 };
 
 const App = () => {

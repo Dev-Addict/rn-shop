@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: Colors.background,
-        minHeight: Dimensions.get('window').height
+        height: Dimensions.get('window').height
     },
     text: {
         color: Colors.foreground,
@@ -15,23 +15,27 @@ const styles = StyleSheet.create({
     },
     largeImage: {
         width : '100%',
-        height: 300,
-        backgroundColor: Colors.foreground
+        height: 300
+    },
+    mediumImage: {
+        height: 100
     },
     cardImage: {
         borderTopRightRadius: 8,
-        borderTopLeftRadius: 8
+        borderTopLeftRadius: 8,
+        backgroundColor: Colors.foreground
+    },
+    cartImage: {
+        borderBottomLeftRadius: 8,
+        borderTopLeftRadius: 8,
+        backgroundColor: Colors.foreground
     },
     card: {
         margin: 20,
         borderRadius: 10,
         borderWidth: 2,
         borderColor: Colors.foreground,
-        shadowColor: Colors.foreground,
-        shadowOpacity: 0.26,
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 8,
-        elevation: 3
+        shadowRadius: 8
     },
     cardContent: {
         padding: 20
@@ -89,6 +93,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
+    },
+    row: {
+        flexDirection: 'row'
     }
 });
 
