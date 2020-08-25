@@ -10,6 +10,25 @@ import reducers from './reducers';
 
 const store = createStore(reducers, applyMiddleware(reduxThunk));
 
+Array.prototype.removeIf = function(callback) {
+    let i = this.length;
+    while (i--) {
+        if (callback(this[i], i)) {
+            this.splice(i, 1);
+        }
+    }
+};
+
+Array.prototype.removeOneIf = function(callback) {
+    let i = this.length;
+    while (i--) {
+        if (callback(this[i], i)) {
+            this.splice(i, 1);
+            return
+        }
+    }
+};
+
 const App = () => {
     let [isFontLoaded] = useFonts({
         'raleway-bold': require('./assets/fonts/raleway-bold.ttf'),
