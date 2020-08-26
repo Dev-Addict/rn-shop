@@ -2,7 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Ionicons} from "@expo/vector-icons";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import HeaderButton from '../components/HeaderButton'
@@ -28,7 +28,9 @@ const Shop = () => (
         headerBackImage: () => <Ionicons name="md-arrow-back" size={25} color={Colors.foreground}/>,
         headerRight: () => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item title="Cart" iconName="md-cart" onPress={() => {navigate('CartScreen')}}/>
+                <Item title="Cart" iconName="md-cart" onPress={() => {
+                    navigate('CartScreen')
+                }}/>
             </HeaderButtons>
         ),
         headerLeft: () => (
@@ -62,7 +64,7 @@ const Orders = () => (
             </HeaderButtons>
         )
     })}>
-        <OrdersStack.Screen name="OrdersScreen" component={OrdersScreen} title="Orders"/>
+        <OrdersStack.Screen name={"OrdersScreen"} component={OrdersScreen} title="Orders"/>
     </OrdersStack.Navigator>
 );
 
@@ -72,8 +74,12 @@ const ShopNavigator = () => {
     return (
         <NavigationContainer>
             <ShopDrawer.Navigator initialRouteName="Shop">
-                <ShopDrawer.Screen name="Shop" component={Shop}/>
-                <ShopDrawer.Screen name="Orders" component={Orders}/>
+                <ShopDrawer.Screen name="Shop" component={Shop} options={{
+                    drawerIcon: ({size, focused, color}) => <Ionicons name="ios-home" size={size} color={color}/>
+                }}/>
+                <ShopDrawer.Screen name="Orders" component={Orders} options={{
+                    drawerIcon: ({size, focused, color}) => <Ionicons name="md-cart" size={size} color={color}/>
+                }}/>
             </ShopDrawer.Navigator>
         </NavigationContainer>
     );
