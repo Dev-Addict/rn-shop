@@ -17,6 +17,7 @@ Array.prototype.removeIf = function(callback) {
             this.splice(i, 1);
         }
     }
+    return this
 };
 
 Array.prototype.removeOneIf = function(callback) {

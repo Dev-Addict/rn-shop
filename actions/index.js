@@ -1,5 +1,5 @@
 import {
-    ADD_PRODUCT_TO_CART_ACTION_TYPE, CREATE_ORDER_ACTION_TYPE, EMPTY_CART_ACTION_TYPE,
+    ADD_PRODUCT_TO_CART_ACTION_TYPE, CREATE_ORDER_ACTION_TYPE, DELETE_PRODUCT_ACTION_TYPE, EMPTY_CART_ACTION_TYPE,
     REMOVE_ONE_PRODUCT_FROM_CART_ACTION_TYPE, REMOVE_PRODUCT_FROM_CART_ACTION_TYPE,
     SET_PRODUCTS_ACTION_TYPE
 } from "./types";
@@ -34,4 +34,9 @@ export const emptyCart = () => ({
 export const createOrder = (order) => ({
     type: CREATE_ORDER_ACTION_TYPE,
     payload: order
+});
+
+export const deleteProduct = (id) => ({
+    type: DELETE_PRODUCT_ACTION_TYPE,
+    payload: id
 });
