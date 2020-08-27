@@ -12,6 +12,7 @@ import ProductDetailScreen from "../Screens/shop/ProductDetailScreen";
 import Colors from "../constants/Colors";
 import CartScreen from "../Screens/shop/CartScreen";
 import OrdersScreen from "../Screens/shop/OrdersScreen";
+import UserProductsScreen from "../Screens/user/UserProductsScreen";
 
 const ShopStack = createStackNavigator();
 
@@ -64,8 +65,31 @@ const Orders = () => (
             </HeaderButtons>
         )
     })}>
-        <OrdersStack.Screen name={"OrdersScreen"} component={OrdersScreen} title="Orders"/>
+        <OrdersStack.Screen name="OrdersScreen" component={OrdersScreen} options={{title: "Orders"}}/>
     </OrdersStack.Navigator>
+);
+
+const UserStack = createStackNavigator();
+
+const User = () => (
+    <UserStack.Navigator screenOptions={({navigation: {toggleDrawer}}) => ({
+        headerStyle: {
+            backgroundColor: Colors.darkerBackground,
+        },
+        headerTintColor: Colors.foreground,
+        headerTitleStyle: {
+            fontFamily: 'raleway'
+        },
+        headerBackTitle: '',
+        headerBackImage: () => <Ionicons name="md-arrow-back" size={25} color={Colors.foreground}/>,
+        headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item title="Bars" iconName="md-menu" onPress={toggleDrawer}/>
+            </HeaderButtons>
+        )
+    })}>
+        <UserStack.Screen name="UserProductScreen" component={UserProductsScreen} options={{title: "My Products"}}/>
+    </UserStack.Navigator>
 );
 
 const ShopDrawer = createDrawerNavigator();
@@ -79,6 +103,9 @@ const ShopNavigator = () => {
                 }}/>
                 <ShopDrawer.Screen name="Orders" component={Orders} options={{
                     drawerIcon: ({size, color}) => <Ionicons name="md-cart" size={size} color={color}/>
+                }}/>
+                <ShopDrawer.Screen name="Account" component={User} options={{
+                    drawerIcon: ({size, color}) => <Ionicons name="md-person" size={size} color={color}/>
                 }}/>
             </ShopDrawer.Navigator>
         </NavigationContainer>
