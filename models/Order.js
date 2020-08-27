@@ -1,9 +1,9 @@
 class Order {
-    constructor(cart, total, address) {
+    constructor(cart, total) {
         this.id = Date.now().toString(16);
         this.cart = cart;
         this.total = total;
-        this.address = address;
+        this.time = Date.now();
     }
 }
 

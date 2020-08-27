@@ -75,10 +75,10 @@ const ShopNavigator = () => {
         <NavigationContainer>
             <ShopDrawer.Navigator initialRouteName="Shop">
                 <ShopDrawer.Screen name="Shop" component={Shop} options={{
-                    drawerIcon: ({size, focused, color}) => <Ionicons name="ios-home" size={size} color={color}/>
+                    drawerIcon: ({size, color}) => <Ionicons name="ios-home" size={size} color={color}/>
                 }}/>
                 <ShopDrawer.Screen name="Orders" component={Orders} options={{
-                    drawerIcon: ({size, focused, color}) => <Ionicons name="md-cart" size={size} color={color}/>
+                    drawerIcon: ({size, color}) => <Ionicons name="md-cart" size={size} color={color}/>
                 }}/>
             </ShopDrawer.Navigator>
         </NavigationContainer>
