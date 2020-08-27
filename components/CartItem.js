@@ -7,7 +7,7 @@ import Button from "./Button";
 import styles from "../styles";
 import {addProductToCart, removeOneProductFromCart} from "../actions";
 
-const CartItem = ({item: {imageUrl, title, description, id, price}, amount, navigation: {navigate}}) => {
+const CartItem = ({item: {imageUrl, title, description, id, price}, amount, navigation: {navigate}, isEditable = true}) => {
     const dispatch = useDispatch();
 
     return (
@@ -22,15 +22,19 @@ const CartItem = ({item: {imageUrl, title, description, id, price}, amount, navi
                         <Text size={6} style={{fontFamily: 'dancing-script'}}>{price}$</Text>
                     </View>
                     <Text numberOfLines={1} style={{marginBottom: 10}} size={6}>{description}</Text>
-                    <Button title="Read more" onPress={() => {navigate('ProductDetailScreen', {
-                        id
-                    })}}/>
+                    <Button title="Read more" onPress={() => {
+                        navigate('ProductDetailScreen', {
+                            id
+                        })
+                    }}/>
                 </View>
             </View>
             <View style={{...styles.content, flex: 1, alignItems: 'center'}}>
-                <Button title="+" onPress={() => dispatch(addProductToCart(id))}/>
+                <Button title="+" onPress={isEditable ? () => dispatch(addProductToCart(id)) : () => {
+                }} style={isEditable ? {} : {opacity: 0.5}}/>
                 <Text>{amount}</Text>
-                <Button title="-" color="2" onPress={() => dispatch(removeOneProductFromCart(id))}/>
+                <Button title="-" color="2" onPress={isEditable ? () => dispatch(removeOneProductFromCart(id)) : () => {
+                }} style={isEditable ? {} : {opacity: 0.5}}/>
             </View>
         </View>
     );
