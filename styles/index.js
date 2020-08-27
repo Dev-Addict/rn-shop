@@ -96,6 +96,13 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row'
+    },
+    input: {
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.foreground,
+        color: Colors.foreground,
+        fontFamily: 'raleway',
+        fontSize: 12
     }
 });
 
