@@ -5,3 +5,4 @@ export const REMOVE_PRODUCT_FROM_CART_ACTION_TYPE = 'remove product from cart';
 export const EMPTY_CART_ACTION_TYPE = 'empty cart';
 export const CREATE_ORDER_ACTION_TYPE = 'create order';
 export const DELETE_PRODUCT_ACTION_TYPE = 'delete product';
+export const EDIT_PRODUCT_ACTION_TYPE = 'edit product';

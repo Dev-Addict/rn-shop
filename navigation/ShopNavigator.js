@@ -13,6 +13,7 @@ import Colors from "../constants/Colors";
 import CartScreen from "../Screens/shop/CartScreen";
 import OrdersScreen from "../Screens/shop/OrdersScreen";
 import UserProductsScreen from "../Screens/user/UserProductsScreen";
+import EditProductScreen from "../Screens/user/EditProductScreen";
 
 const ShopStack = createStackNavigator();
 
@@ -89,6 +90,7 @@ const User = () => (
         )
     })}>
         <UserStack.Screen name="UserProductScreen" component={UserProductsScreen} options={{title: "My Products"}}/>
+        <UserStack.Screen name="EditProductScreen" component={EditProductScreen}/>
     </UserStack.Navigator>
 );
 

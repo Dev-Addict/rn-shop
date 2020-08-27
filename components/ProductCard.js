@@ -44,8 +44,7 @@ const ProductCard = ({item: {id, title, imageUrl, description, price}, navigatio
                     }
                     <Text size={4} style={{fontFamily: 'dancing-script'}}>{price}$</Text>
                     {manage ?
-                        <Button title="Edit" onPress={() => {
-                        }}/> :
+                        <Button title="Edit" onPress={() => navigate('EditProductScreen', {id})}/> :
                         <Button title="Add To Cart" onPress={() => {
                             dispatch(addProductToCart(id))
                         }}/>
