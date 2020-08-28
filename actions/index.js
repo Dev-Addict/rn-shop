@@ -1,3 +1,4 @@
+import rnshop from "../apis/rnshop";
 import {
     ADD_PRODUCT_TO_CART_ACTION_TYPE,
     CREATE_ORDER_ACTION_TYPE, CREATE_PRODUCT_ACTION_TYPE,
@@ -8,12 +9,13 @@ import {
     REMOVE_PRODUCT_FROM_CART_ACTION_TYPE,
     SET_PRODUCTS_ACTION_TYPE
 } from "./types";
-import {PRODUCTS} from "../data";
 
 export const getProducts = () => async (dispatch) => {
+    const res = await rnshop.get('/products.json');
+
     dispatch({
         type: SET_PRODUCTS_ACTION_TYPE,
-        payload: PRODUCTS
+        payload: Object.entries(res.data).map(([key, value]) => ({...value, id: key}))
     })
 };
 
@@ -51,7 +53,14 @@ export const editProduct = (product) => ({
     payload: product
 });
 
-export const createProduct = (product) => ({
-    type: CREATE_PRODUCT_ACTION_TYPE,
-    payload: product
-});
+export const createProduct = (product) => async dispatch => {
+    try {
+        const res = await rnshop.post('products.json', product);
+
+        dispatch({
+            type: CREATE_PRODUCT_ACTION_TYPE,
+            payload: product
+        });
+    } catch (err) {
+    }
+};
