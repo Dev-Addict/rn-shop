@@ -6,7 +6,7 @@ import {
     EDIT_PRODUCT_ACTION_TYPE,
     EMPTY_CART_ACTION_TYPE, ERROR_ACTION_TYPE,
     REMOVE_ONE_PRODUCT_FROM_CART_ACTION_TYPE,
-    REMOVE_PRODUCT_FROM_CART_ACTION_TYPE, SET_LOADING_ACTION_TYPE,
+    SET_LOADING_ACTION_TYPE,
     SET_PRODUCTS_ACTION_TYPE
 } from "./types";
 
@@ -47,11 +47,6 @@ export const removeOneProductFromCart = (id) => ({
     payload: id
 });
 
-export const removeProductFromCart = (id) => ({
-    type: REMOVE_PRODUCT_FROM_CART_ACTION_TYPE,
-    payload: id
-});
-
 export const emptyCart = () => ({
     type: EMPTY_CART_ACTION_TYPE
 });
@@ -61,15 +56,57 @@ export const createOrder = (order) => ({
     payload: order
 });
 
-export const deleteProduct = (id) => ({
-    type: DELETE_PRODUCT_ACTION_TYPE,
-    payload: id
-});
+export const deleteProduct = (id) => async dispatch => {
+    try {
+        dispatch({
+            type: SET_LOADING_ACTION_TYPE,
+            payload: true
+        });
 
-export const editProduct = (product) => ({
-    type: EDIT_PRODUCT_ACTION_TYPE,
-    payload: product
-});
+        await rnshop.delete(`/products/${id}.json`);
+
+        dispatch({
+            type: DELETE_PRODUCT_ACTION_TYPE,
+            payload: id
+        });
+    } catch (err) {
+        dispatch({
+            type: ERROR_ACTION_TYPE,
+            payload: 'Something went wrong.'
+        });
+    }
+
+    dispatch({
+        type: SET_LOADING_ACTION_TYPE,
+        payload: false
+    });
+};
+
+export const editProduct = ({id, owner, title, imageUrl, description, price}) => async dispatch => {
+    try {
+        dispatch({
+            type: SET_LOADING_ACTION_TYPE,
+            payload: true
+        });
+
+        await rnshop.patch(`/products/${id}.json`, {owner, title, imageUrl, description, price});
+
+        dispatch({
+            type: EDIT_PRODUCT_ACTION_TYPE,
+            payload: {id, owner, title, imageUrl, description, price}
+        });
+    } catch (err) {
+        dispatch({
+            type: ERROR_ACTION_TYPE,
+            payload: 'Something went wrong.'
+        });
+    }
+
+    dispatch({
+        type: SET_LOADING_ACTION_TYPE,
+        payload: false
+    });
+};
 
 export const createProduct = (product) => async dispatch => {
     try {
