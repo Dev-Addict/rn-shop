@@ -7,7 +7,8 @@ import {
     EMPTY_CART_ACTION_TYPE, ERROR_ACTION_TYPE,
     REMOVE_ONE_PRODUCT_FROM_CART_ACTION_TYPE,
     SET_LOADING_ACTION_TYPE,
-    SET_PRODUCTS_ACTION_TYPE
+    SET_PRODUCTS_ACTION_TYPE,
+    SET_ORDERS_ACTION_TYPE
 } from "./types";
 
 export const getProducts = () => async (dispatch) => {
@@ -28,7 +29,6 @@ export const getProducts = () => async (dispatch) => {
             type: ERROR_ACTION_TYPE,
             payload: err.response.data
         });
-
     }
 
     dispatch({
@@ -51,10 +51,31 @@ export const emptyCart = () => ({
     type: EMPTY_CART_ACTION_TYPE
 });
 
-export const createOrder = (order) => ({
-    type: CREATE_ORDER_ACTION_TYPE,
-    payload: order
-});
+export const createOrder = ({id, cart, total, time}) => async dispatch => {
+    try {
+        dispatch({
+            type: SET_LOADING_ACTION_TYPE,
+            payload: true
+        });
+
+        const res = await rnshop.post('/orders.json', {cart, total, time});
+
+        dispatch({
+            type: CREATE_ORDER_ACTION_TYPE,
+            payload: {cart, total, time, id: res.data.name}
+        });
+    } catch (err) {
+        dispatch({
+            type: ERROR_ACTION_TYPE,
+            payload: 'Something went wrong.'
+        });
+    }
+
+    dispatch({
+        type: SET_LOADING_ACTION_TYPE,
+        payload: false
+    });
+};
 
 export const deleteProduct = (id) => async dispatch => {
     try {
@@ -140,3 +161,29 @@ export const removeError = () => ({
     type: ERROR_ACTION_TYPE,
     payload: ''
 });
+
+export const getOrders = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: SET_LOADING_ACTION_TYPE,
+            payload: true
+        });
+
+        const res = await rnshop.get('/orders.json');
+
+        dispatch({
+            type: SET_ORDERS_ACTION_TYPE,
+            payload: Object.entries(res.data).map(([key, value]) => ({...value, id: key}))
+        });
+    } catch (err) {
+        dispatch({
+            type: ERROR_ACTION_TYPE,
+            payload: 'Something went wrong'
+        });
+    }
+
+    dispatch({
+        type: SET_LOADING_ACTION_TYPE,
+        payload: false
+    });
+};
