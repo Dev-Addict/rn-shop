@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, FlatList} from 'react-native';
 import {useDispatch, useSelector} from "react-redux";
 import {getOrders} from "../../actions";
@@ -9,13 +9,16 @@ import styles from "../../styles";
 const OrdersScreen = ({navigation}) => {
     const dispatch = useDispatch();
 
-    dispatch(getOrders());
+    useEffect(() => {
+        dispatch(getOrders());
+    }, []);
 
     const orders = useSelector(({orders}) => orders);
+    const isLoading = useSelector(({isLoading}) => isLoading);
 
     return (
         <View style={styles.screen}>
-            <FlatList data={orders} keyExtractor={({id}) => id} renderItem={(props) => <OrderCard navigation={navigation} {...props}/>}/>
+            <FlatList data={orders} onRefresh={() => dispatch(getOrders())} refreshing={isLoading} keyExtractor={({id}) => id} renderItem={(props) => <OrderCard navigation={navigation} {...props}/>}/>
         </View>
     );
 };

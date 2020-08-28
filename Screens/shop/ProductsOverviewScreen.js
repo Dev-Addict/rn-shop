@@ -8,6 +8,7 @@ import styles from "../../styles";
 
 const ProductsOverviewScreen = ({navigation}) => {
     const products = useSelector(({products}) => products);
+    const isLoading = useSelector(({isLoading}) => isLoading);
 
     const dispatch = useDispatch();
 
@@ -17,7 +18,7 @@ const ProductsOverviewScreen = ({navigation}) => {
 
     return (
         <View style={styles.screen}>
-            <FlatList data={products} keyExtractor={({id}) => id}
+            <FlatList data={products} keyExtractor={({id}) => id} onRefresh={() => dispatch(getProducts())} refreshing={isLoading}
                       renderItem={(props) => <ProductCard navigation={navigation} {...props}/>}/>
         </View>
     );
