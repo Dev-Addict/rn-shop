@@ -1,8 +1,10 @@
 import React from 'react';
+import {View, Modal, ActivityIndicator} from 'react-native';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {useDispatch, useSelector} from "react-redux";
 import {Ionicons} from "@expo/vector-icons";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import HeaderButton from '../components/HeaderButton'
@@ -15,6 +17,10 @@ import OrdersScreen from "../Screens/shop/OrdersScreen";
 import UserProductsScreen from "../Screens/user/UserProductsScreen";
 import EditProductScreen from "../Screens/user/EditProductScreen";
 import CreateProductScreen from "../Screens/user/CreateProductScreen";
+import Text from "../components/Text";
+import Button from "../components/Button";
+import {removeError} from "../actions";
+import styles from "../styles";
 
 const ShopStack = createStackNavigator();
 
@@ -99,8 +105,26 @@ const User = () => (
 const ShopDrawer = createDrawerNavigator();
 
 const ShopNavigator = () => {
+    const dispatch = useDispatch();
+
+    const isLoading = useSelector(({isLoading}) => isLoading);
+    const error = useSelector(({error}) => error);
+
     return (
         <NavigationContainer>
+            <Modal animationType="slide" transparent={false} visible={isLoading}>
+                <View style={{...styles.screen, justifyContent: 'center', alignItems: 'center'}}>
+                    <ActivityIndicator size="large" color={Colors.primary}/>
+                    <Text size={3}>Loading...</Text>
+                </View>
+            </Modal>
+            <Modal animationType="slide" transparent={false} visible={!!error}>
+                <View style={{...styles.screen, justifyContent: 'center', alignItems: 'center'}}>
+                    <Ionicons name="ios-close-circle-outline" size={24} color={Colors.danger}/>
+                    <Text size={3}>{error}</Text>
+                    <Button title="OK!" onPress={() => dispatch(removeError())}/>
+                </View>
+            </Modal>
             <ShopDrawer.Navigator initialRouteName="Shop">
                 <ShopDrawer.Screen name="Shop" component={Shop} options={{
                     drawerIcon: ({size, color}) => <Ionicons name="ios-home" size={size} color={color}/>

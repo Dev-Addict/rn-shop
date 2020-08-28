@@ -4,19 +4,37 @@ import {
     CREATE_ORDER_ACTION_TYPE, CREATE_PRODUCT_ACTION_TYPE,
     DELETE_PRODUCT_ACTION_TYPE,
     EDIT_PRODUCT_ACTION_TYPE,
-    EMPTY_CART_ACTION_TYPE,
+    EMPTY_CART_ACTION_TYPE, ERROR_ACTION_TYPE,
     REMOVE_ONE_PRODUCT_FROM_CART_ACTION_TYPE,
-    REMOVE_PRODUCT_FROM_CART_ACTION_TYPE,
+    REMOVE_PRODUCT_FROM_CART_ACTION_TYPE, SET_LOADING_ACTION_TYPE,
     SET_PRODUCTS_ACTION_TYPE
 } from "./types";
 
 export const getProducts = () => async (dispatch) => {
-    const res = await rnshop.get('/products.json');
+    try {
+        dispatch({
+            type: SET_LOADING_ACTION_TYPE,
+            payload: true
+        });
+
+        const res = await rnshop.get('/products.json');
+
+        dispatch({
+            type: SET_PRODUCTS_ACTION_TYPE,
+            payload: Object.entries(res.data).map(([key, value]) => ({...value, id: key}))
+        });
+    } catch (err) {
+        dispatch({
+            type: ERROR_ACTION_TYPE,
+            payload: err.response.data
+        });
+
+    }
 
     dispatch({
-        type: SET_PRODUCTS_ACTION_TYPE,
-        payload: Object.entries(res.data).map(([key, value]) => ({...value, id: key}))
-    })
+        type: SET_LOADING_ACTION_TYPE,
+        payload: false
+    });
 };
 
 export const addProductToCart = (id) => ({
@@ -55,12 +73,33 @@ export const editProduct = (product) => ({
 
 export const createProduct = (product) => async dispatch => {
     try {
+        dispatch({
+            type: SET_LOADING_ACTION_TYPE,
+            payload: true
+        });
+
         const res = await rnshop.post('products.json', product);
+
+        product.id = res.data.name;
 
         dispatch({
             type: CREATE_PRODUCT_ACTION_TYPE,
             payload: product
         });
     } catch (err) {
+        dispatch({
+            type: ERROR_ACTION_TYPE,
+            payload: 'Something went wrong.'
+        });
     }
+
+    dispatch({
+        type: SET_LOADING_ACTION_TYPE,
+        payload: false
+    });
 };
+
+export const removeError = () => ({
+    type: ERROR_ACTION_TYPE,
+    payload: ''
+});
