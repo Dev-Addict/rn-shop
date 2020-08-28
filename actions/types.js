@@ -7,3 +7,5 @@ export const CREATE_ORDER_ACTION_TYPE = 'create order';
 export const DELETE_PRODUCT_ACTION_TYPE = 'delete product';
 export const EDIT_PRODUCT_ACTION_TYPE = 'edit product';
 export const CREATE_PRODUCT_ACTION_TYPE = 'create product';
+export const ERROR_ACTION_TYPE = 'error';
+export const SET_LOADING_ACTION_TYPE = 'set loading';
