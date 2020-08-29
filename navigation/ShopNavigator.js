@@ -21,6 +21,8 @@ import Text from "../components/Text";
 import Button from "../components/Button";
 import {removeError} from "../actions";
 import styles from "../styles";
+import SignInScreen from "../Screens/auth/SignInScreen";
+import SignUpScreen from "../Screens/auth/SignUpScreen";
 
 const ShopStack = createStackNavigator();
 
@@ -98,17 +100,22 @@ const User = () => (
     })}>
         <UserStack.Screen name="UserProductScreen" component={UserProductsScreen} options={{title: "My Products"}}/>
         <UserStack.Screen name="EditProductScreen" component={EditProductScreen}/>
-        <UserStack.Screen name="CreateProductScreen" component={CreateProductScreen} options={{title: "Create Product"}}/>
+        <UserStack.Screen name="CreateProductScreen" component={CreateProductScreen}
+                          options={{title: "Create Product"}}/>
     </UserStack.Navigator>
 );
 
 const ShopDrawer = createDrawerNavigator();
+
+const AuthStack = createStackNavigator();
 
 const ShopNavigator = () => {
     const dispatch = useDispatch();
 
     const isLoading = useSelector(({isLoading}) => isLoading);
     const error = useSelector(({error}) => error);
+
+    const fakeVar = true;
 
     return (
         <NavigationContainer>
@@ -125,17 +132,33 @@ const ShopNavigator = () => {
                     <Button title="OK!" onPress={() => dispatch(removeError())}/>
                 </View>
             </Modal>
-            <ShopDrawer.Navigator initialRouteName="Shop">
-                <ShopDrawer.Screen name="Shop" component={Shop} options={{
-                    drawerIcon: ({size, color}) => <Ionicons name="ios-home" size={size} color={color}/>
-                }}/>
-                <ShopDrawer.Screen name="Orders" component={Orders} options={{
-                    drawerIcon: ({size, color}) => <Ionicons name="md-cart" size={size} color={color}/>
-                }}/>
-                <ShopDrawer.Screen name="Account" component={User} options={{
-                    drawerIcon: ({size, color}) => <Ionicons name="md-person" size={size} color={color}/>
-                }}/>
-            </ShopDrawer.Navigator>
+            {fakeVar ?
+                <AuthStack.Navigator screenOptions={() => ({
+                    headerStyle: {
+                        backgroundColor: Colors.darkerBackground,
+                    },
+                    headerTintColor: Colors.foreground,
+                    headerTitleStyle: {
+                        fontFamily: 'raleway'
+                    },
+                    headerBackTitle: '',
+                    headerBackImage: () => <Ionicons name="md-arrow-back" size={25} color={Colors.foreground}/>
+                })}>
+                    <AuthStack.Screen name="SignInScreen" component={SignInScreen} options={{title: "Sign In"}}/>
+                    <AuthStack.Screen name="SignUpScreen" component={SignUpScreen} options={{title: "Sign Up"}}/>
+                </AuthStack.Navigator> :
+                <ShopDrawer.Navigator initialRouteName="Shop">
+                    <ShopDrawer.Screen name="Shop" component={Shop} options={{
+                        drawerIcon: ({size, color}) => <Ionicons name="ios-home" size={size} color={color}/>
+                    }}/>
+                    <ShopDrawer.Screen name="Orders" component={Orders} options={{
+                        drawerIcon: ({size, color}) => <Ionicons name="md-cart" size={size} color={color}/>
+                    }}/>
+                    <ShopDrawer.Screen name="Account" component={User} options={{
+                        drawerIcon: ({size, color}) => <Ionicons name="md-person" size={size} color={color}/>
+                    }}/>
+                </ShopDrawer.Navigator>
+            }
         </NavigationContainer>
     );
 };
